@@ -11,4 +11,11 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <name>ChatApp</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE121</version>
+        </dependency>
+    </dependencies>
 </project>
