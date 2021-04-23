@@ -5,6 +5,7 @@
  */
 package com.mycompany.client;
 
+import com.mycompany.client.pojo2.ClienteDemo;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -21,7 +22,8 @@ public class Client extends javax.swing.JFrame implements Observer{
     public Client() {
         initComponents();
         this.getRootPane().setDefaultButton(this.btnEnviar);
-        Servidor s = new Servidor(5000);
+        
+        Server s = new Server(6000);//
         s.addObserver(this);
         Thread t = new Thread(s);
         s.start();
@@ -43,20 +45,20 @@ public class Client extends javax.swing.JFrame implements Observer{
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtMensaje = new javax.swing.JTextArea();
+        txtTextoEnviar = new javax.swing.JTextArea();
         btnEnviar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtMensajes = new javax.swing.JTextArea();
+        txtTexto = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 30));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        txtMensaje.setColumns(20);
-        txtMensaje.setRows(5);
-        jScrollPane1.setViewportView(txtMensaje);
+        txtTextoEnviar.setColumns(20);
+        txtTextoEnviar.setRows(5);
+        jScrollPane1.setViewportView(txtTextoEnviar);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -79,9 +81,9 @@ public class Client extends javax.swing.JFrame implements Observer{
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        txtMensajes.setColumns(20);
-        txtMensajes.setRows(5);
-        jScrollPane2.setViewportView(txtMensajes);
+        txtTexto.setColumns(20);
+        txtTexto.setRows(5);
+        jScrollPane2.setViewportView(txtTexto);
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -91,8 +93,13 @@ public class Client extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        String mensaje ="1: "+this.txtMensaje.getText()+"n";
-        this.txtMensajes.append(mensaje);
+        String mensaje ="1: "+this.txtTextoEnviar.getText()+"\n";// el mensaje 
+        this.txtTexto.append(mensaje);// el text area
+        
+        Client c = new Client(6000,mensaje);
+        Thread t = new Thread(c);
+        t.start();
+        
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
@@ -136,12 +143,12 @@ public class Client extends javax.swing.JFrame implements Observer{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtMensaje;
-    private javax.swing.JTextArea txtMensajes;
+    private javax.swing.JTextArea txtTexto;
+    private javax.swing.JTextArea txtTextoEnviar;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void update(Observable o, Object o1) {
- 
+    public void update(Observable o, Object arg) {
+           this.txtTexto.append((String)arg);
     }
 }
