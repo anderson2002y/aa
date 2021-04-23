@@ -48,6 +48,8 @@ public class ClienteDemo implements Runnable{
             System.out.println(mensaje);
             sc.close();
             
+           //
+            
         } catch (IOException ex) {
             Logger.getLogger(ClienteDemo.class.getName()).log(Level.SEVERE, null, ex);
         }
